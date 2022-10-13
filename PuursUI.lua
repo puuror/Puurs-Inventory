@@ -30,39 +30,33 @@ function puurs.ui()
 	FrameMain.Position = UDim2.new(0.5, 0, 0.5, 0)
 	FrameMain.Size = UDim2.new(0, 0, 0, 0)
 	FrameMain.ClipsDescendants = true
-
 	tween:Create(FrameMain,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 450, 0, 350)}):Play()
+	
+	local drag = {};local debounce = false
+	function unit(inputs)
+		FrameMain.InputBegan:Connect(function(input)
+			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+				debounce = true
+				drag[2] = input.Position
+				drag[3] = FrameMain.Position
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						debounce = false
+					end
+				end)
+			end
+		end)
+	end
+	unit(inputs)
+	uis.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if debounce then
+				local pos = input.Position - drag[2]
+				tween:Create(FrameMain,TweenInfo.new(0.1), {Position = UDim2.new(drag[3].X.Scale, drag[3].X.Offset + pos.X, drag[3].Y.Scale, drag[3].Y.Offset + pos.Y)}):Play()
+			end
+		end
+	end)
 
-	local dragger = {}
-	local resizer = {}
-
-    function dragger.new(frame)
-        local s, event = pcall(function()
-            return frame.MouseEnter
-        end)
- 
-        if s then
-            frame.Active = true;
- 
-            event:connect(function()
-                local input = frame.InputBegan:connect(function(key)
-                    if key.UserInputType == Enum.UserInputType.MouseButton1 then
-                        local objectPosition = Vector2.new(mouse.X - frame.AbsolutePosition.X, mouse.Y - frame.AbsolutePosition.Y);
-                        while hb:wait() and uis:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-                            frame:TweenPosition(UDim2.new(0, mouse.X - objectPosition.X + (frame.Size.X.Offset * frame.AnchorPoint.X), 0, mouse.Y - objectPosition.Y + (frame.Size.Y.Offset * frame.AnchorPoint.Y)), 'Out', 'Quad', 0.1, true);
-                        end
-                    end
-                end)
- 
-                local leave;
-                leave = frame.MouseLeave:connect(function()
-                    input:disconnect();
-                    leave:disconnect();
-                end)
-            end)
-        end
-    end
-    
 	local click = Instance.new("Sound")
 	click.Name = "[Sound/Click]"
 	click.Parent = FrameMain
@@ -75,13 +69,6 @@ function puurs.ui()
 	enter.SoundId = "rbxassetid://7148665961"
 	enter.Volume = 0.24
 	enter.PlaybackSpeed = 1.3
-
-    function resizer.new(p, s)
-        p:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
-            s.Size = UDim2.new(s.Size.X.Scale, s.Size.X.Offset, s.Size.Y.Scale, p.AbsoluteSize.Y);
-        end)
-    end
-    dragger.new(FrameMain)
 
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Name = "[UICorner]"
