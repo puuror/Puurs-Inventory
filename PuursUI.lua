@@ -115,8 +115,8 @@ function puurs.ui()
 	TextLabelName.AnchorPoint = Vector2.new(0.5, 0.5)
 	TextLabelName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabelName.BackgroundTransparency = 1.000
-	TextLabelName.Position = UDim2.new(0.0811111107, 0, 0.510452509, 0)
-	TextLabelName.Size = UDim2.new(0, 54, 0, 37)
+	TextLabelName.Position = UDim2.new(0.0877777785, 0, 0.502159774, 0)
+	TextLabelName.Size = UDim2.new(0, 54, 0, 26)
 	TextLabelName.Font = Enum.Font.Gotham
 	TextLabelName.Text = "Puurs"
 	TextLabelName.TextColor3 = Color3.fromRGB(255, 255, 255)
