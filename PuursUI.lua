@@ -1,7 +1,6 @@
 local tween = game:GetService("TweenService")
 local mouse = game:GetService("Players").LocalPlayer:GetMouse()
 local uis = game:GetService("UserInputService");
-local hb = game:GetService("RunService").Heartbeat;
 local puurs = {}
 
 function puurs.ui()
@@ -70,13 +69,6 @@ function puurs.ui()
 	main.SoundId = "rbxassetid://542332175"
 	main.Volume = 1
 	main.PlaybackSpeed = 0.1
-
-	local notmain = Instance.new("Sound")
-	notmain.Name = "[Sound/NotMain]"
-	notmain.Parent = FrameMain
-	notmain.SoundId = "rbxassetid://542332175"
-	notmain.Volume = 1
-	notmain.PlaybackSpeed = 1
 
 	main:Play()
 
@@ -159,11 +151,12 @@ function puurs.ui()
 	TextButtonClose.Position = UDim2.new(0.911111116, 0, 0, 0)
 	TextButtonClose.Size = UDim2.new(0, 40, 0, 36)
 	TextButtonClose.Font = Enum.Font.Gotham
-	TextButtonClose.Text = "X"
+	TextButtonClose.Text = "[]"
 	TextButtonClose.TextColor3 = Color3.fromRGB(106,106,106)
 	TextButtonClose.TextSize = 18.000
 	TextButtonClose.TextWrapped = true
 	TextButtonClose.MouseButton1Click:Connect(function()
+		main:Play()
 		tween:Create(FrameMain,TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 0, 0, 0)}):Play()
 		wait(.3)
 		FrameMain:Destroy()
