@@ -671,3 +671,4 @@ function puurs.ui()
 	end
 	return tabs
 end
+return puurs
