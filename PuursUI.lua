@@ -19,7 +19,7 @@ function puurs.ui()
 	local TextButtonClose = Instance.new("TextButton")
 
 	UILibrary.Name = "[UI Library]"
-	UILibrary.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	UILibrary.Parent = game:GetService("CoreGui")
 	UILibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	FrameMain.Name = "[Frame/Main]"
