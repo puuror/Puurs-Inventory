@@ -17,6 +17,7 @@ function puurs.ui()
 	local UIListLayout = Instance.new("UIListLayout")
 	local UIPadding = Instance.new("UIPadding")
 	local FolderContainers = Instance.new("Folder")
+	local TextButtonClose = Instance.new("TextButton")
 
 	UILibrary.Name = "[UI Library]"
 	UILibrary.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -30,7 +31,7 @@ function puurs.ui()
 	FrameMain.Position = UDim2.new(0.5, 0, 0.5, 0)
 	FrameMain.Size = UDim2.new(0, 0, 0, 0)
 	FrameMain.ClipsDescendants = true
-	tween:Create(FrameMain,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 450, 0, 350)}):Play()
+	tween:Create(FrameMain,TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 450, 0, 350)}):Play()
 	
 	local drag = {};local debounce = false
 	function unit(inputs)
@@ -63,12 +64,27 @@ function puurs.ui()
 	click.SoundId = "rbxassetid://6652808984"
 	click.Volume = 1
 
+	local main = Instance.new("Sound")
+	main.Name = "[Sound/Main]"
+	main.Parent = FrameMain
+	main.SoundId = "rbxassetid://542332175"
+	main.Volume = 1
+	main.PlaybackSpeed = 0.1
+
+	local notmain = Instance.new("Sound")
+	notmain.Name = "[Sound/NotMain]"
+	notmain.Parent = FrameMain
+	notmain.SoundId = "rbxassetid://542332175"
+	notmain.Volume = 1
+	notmain.PlaybackSpeed = 1
+
+	main:Play()
+
 	local enter = Instance.new("Sound")
 	enter.Name = "[Sound/Typing]"
 	enter.Parent = FrameMain
-	enter.SoundId = "rbxassetid://7148665961"
-	enter.Volume = 0.24
-	enter.PlaybackSpeed = 1.3
+	enter.SoundId = "rbxassetid://9119720940"
+	enter.Volume = 1
 
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Name = "[UICorner]"
@@ -135,6 +151,29 @@ function puurs.ui()
 
 	FolderContainers.Name = "[Folder/Containers]"
 	FolderContainers.Parent = FrameMain
+
+	TextButtonClose.Name = "[TextButton/Close]"
+	TextButtonClose.Parent = FrameMain
+	TextButtonClose.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButtonClose.BackgroundTransparency = 1.000
+	TextButtonClose.Position = UDim2.new(0.911111116, 0, 0, 0)
+	TextButtonClose.Size = UDim2.new(0, 40, 0, 36)
+	TextButtonClose.Font = Enum.Font.Gotham
+	TextButtonClose.Text = "X"
+	TextButtonClose.TextColor3 = Color3.fromRGB(106,106,106)
+	TextButtonClose.TextSize = 18.000
+	TextButtonClose.TextWrapped = true
+	TextButtonClose.MouseButton1Click:Connect(function()
+		tween:Create(FrameMain,TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 0, 0, 0)}):Play()
+		wait(.3)
+		FrameMain:Destroy()
+	end)
+	TextButtonClose.MouseLeave:Connect(function()
+		tween:Create(TextButtonClose,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(106,106,106)}):Play()
+	end)
+	TextButtonClose.MouseEnter:Connect(function()
+		tween:Create(TextButtonClose,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(255,255,255)}):Play()
+	end)
 
 	local tabs = {}
 	-- Tabs
@@ -632,4 +671,3 @@ function puurs.ui()
 	end
 	return tabs
 end
-return puurs
