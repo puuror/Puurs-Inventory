@@ -632,3 +632,7 @@ while true do
 		end
 	end
 end
+
+if Explorer ~= nil then
+    Explorer:Destroy()
+end
